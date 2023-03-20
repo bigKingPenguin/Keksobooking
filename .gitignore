@@ -1,2 +1,9 @@
 .idea
-node_modules
+.DS_Store
+*.ai
+*.log
+build/
+node_modules/
+npm-debug.log*
+Thumbs.db
+index2.html
