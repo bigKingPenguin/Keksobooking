@@ -67,10 +67,10 @@ const getRandomAdvert = () => {
     offer: {
       title: randomize.getRandomArrayElement(TITLE),
       address: `${location.x}, ${location.y}`, //{{location.x}}, {{location.y}}
-      price: randomize.getRandomInteger(1, 50000), // Случайное целое положительное число
+      price: randomize.getRandomInteger(300, 10000), // Случайное целое положительное число
       type: randomize.getRandomArrayElement(TYPE),
-      rooms: randomize.getRandomInteger(1, 10), // Случайное целое положительное число
-      guests: randomize.getRandomInteger(1, 20), // Случайное целое положительное число
+      rooms: randomize.getRandomInteger(1, 5), // Случайное целое положительное число
+      guests: randomize.getRandomInteger(1, 10), // Случайное целое положительное число
       checkin: randomize.getRandomArrayElement(CHECKIN_OUT),
       checkout: randomize.getRandomArrayElement(CHECKIN_OUT),
       features: randomize.getRandomArray(FEATURES), //массив случайной длины из значений (Значения не должны повторяться)
@@ -89,8 +89,6 @@ const createAdvertArray = () => {
 };
 
 createAdvertArray();
-
-console.log(adverts);
 
 export {
   adverts,
