@@ -11,22 +11,24 @@ const ADVERT_TYPE = {
   palace: 'Дворец',
 };
 
-const ADVERT_FEATURES = {
-  wifi: '.popup__feature--wifi',
-  dishwasher: '.popup__feature--dishwasher',
-  parking: '.popup__feature--parking',
-  washer: '.popup__feature--washer',
-  elevator: '.popup__feature--elevator',
-  conditioner: '.popup__feature--conditioner',
+const POPUP_FEATURE_CLASS = '.popup__feature'
+
+const ADVERT_FEATURES_CLASS = {
+  wifi: `${POPUP_FEATURE_CLASS}--wifi`,
+  dishwasher: `${POPUP_FEATURE_CLASS}--dishwasher`,
+  parking: `${POPUP_FEATURE_CLASS}--parking`,
+  washer: `${POPUP_FEATURE_CLASS}--washer`,
+  elevator: `${POPUP_FEATURE_CLASS}--elevator`,
+  conditioner: `${POPUP_FEATURE_CLASS}--conditioner`,
 };
 
 const getFeaturesList = (features, element) => {
   if (!features.length) {
     element.querySelector('.popup__features').remove();
   } else {
-    for (let feature in ADVERT_FEATURES) {
+    for (let feature in ADVERT_FEATURES_CLASS) {
       if (!features.includes(feature)) {
-        element.querySelector(ADVERT_FEATURES[feature]).remove();
+        element.querySelector(ADVERT_FEATURES_CLASS[feature]).remove();
       }
     }
   }

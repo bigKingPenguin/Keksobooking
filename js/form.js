@@ -5,7 +5,7 @@ const selectCheckout = document.querySelector('#timeout');
 
 // Изменение поля "ТИП ЖИЛЬЯ"
 
-const minPrice = {
+const MIN_APARTMENT_PRICE = {
   bungalow: 0,
   flat: 1000,
   hotel: 2500,
@@ -14,9 +14,8 @@ const minPrice = {
 };
 
 selectType.addEventListener('change', () => {
-  inputPrice.placeholder = minPrice[selectType.value];
-  asz;
-  inputPrice.value = minPrice[selectType.value];
+  inputPrice.placeholder = MIN_APARTMENT_PRICE[selectType.value];
+  inputPrice.value = MIN_APARTMENT_PRICE[selectType.value];
 });
 
 
