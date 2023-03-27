@@ -1,4 +1,5 @@
 import * as randomize from './util/randomiser.js';
+import {COORDINATE_ROUND} from './const/common.js';
 
 const TITLE = [
   'Чистая квартира',
@@ -48,7 +49,6 @@ const COORDINATE_X_MIN = 35.65000;
 const COORDINATE_X_MAX = 35.70000;
 const COORDINATE_Y_MIN = 139.70000;
 const COORDINATE_Y_MAX = 139.80000;
-const COORDINATE_ROUND = 5;
 
 const AVATAR_NUMBER_MIN = 1;
 const AVATAR_NUMBER_MAX = 8;
@@ -57,8 +57,8 @@ const ADVERT_QUANTITY = 10;
 
 const getRandomAdvert = () => {
   const location = {
-    x: randomize.getRandomFloat(COORDINATE_X_MIN, COORDINATE_X_MAX, COORDINATE_ROUND),
-    y: randomize.getRandomFloat(COORDINATE_Y_MIN, COORDINATE_Y_MAX, COORDINATE_ROUND),
+    lat: randomize.getRandomFloat(COORDINATE_X_MIN, COORDINATE_X_MAX, COORDINATE_ROUND),
+    lng: randomize.getRandomFloat(COORDINATE_Y_MIN, COORDINATE_Y_MAX, COORDINATE_ROUND),
   };
   return {
     author: {
@@ -66,7 +66,7 @@ const getRandomAdvert = () => {
     },
     offer: {
       title: randomize.getRandomArrayElement(TITLE),
-      address: `${location.x}, ${location.y}`, //{{location.x}}, {{location.y}}
+      address: `${location.lat}, ${location.lng}`, //{{location.x}}, {{location.y}}
       price: randomize.getRandomInteger(300, 10000), // Случайное целое положительное число
       type: randomize.getRandomArrayElement(TYPE),
       rooms: randomize.getRandomInteger(1, 5), // Случайное целое положительное число

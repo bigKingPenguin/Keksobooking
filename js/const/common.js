@@ -1,0 +1,8 @@
+const COORDINATE_ROUND = 5;
+
+const CENTER_TOKYO = {
+  lat: 35.69034,
+  lng: 139.75175,
+};
+
+export {COORDINATE_ROUND, CENTER_TOKYO};
