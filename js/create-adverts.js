@@ -1,7 +1,4 @@
-import {adverts} from './get-adverts-data.js';
-
 const popup = document.querySelector('#card').content.querySelector('.popup');
-const advertPlace = document.querySelector('.adverts');
 
 const ADVERT_TYPE = {
   flat: 'Квартира',
@@ -22,7 +19,7 @@ const ADVERT_FEATURES_CLASS = {
 };
 
 const getFeaturesList = (features, element) => {
-  if (!features.length) {
+  if (!features) {
     element.querySelector('.popup__features').remove();
   } else {
     for (let feature in ADVERT_FEATURES_CLASS) {
@@ -34,7 +31,7 @@ const getFeaturesList = (features, element) => {
 };
 
 const getPhotosList = (photos, element) => {
-  if (!photos.length) {
+  if (!photos) {
     element.querySelector('.popup__photos').remove();
   } else {
     element.querySelector('.popup__photo').src = photos[0];
