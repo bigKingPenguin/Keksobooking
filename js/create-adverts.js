@@ -2,7 +2,6 @@ import {adverts} from './get-adverts-data.js';
 
 const popup = document.querySelector('#card').content.querySelector('.popup');
 const advertPlace = document.querySelector('.adverts');
-const advertList = document.createDocumentFragment();
 
 const ADVERT_TYPE = {
   flat: 'Квартира',
@@ -11,7 +10,7 @@ const ADVERT_TYPE = {
   palace: 'Дворец',
 };
 
-const POPUP_FEATURE_CLASS = '.popup__feature'
+const POPUP_FEATURE_CLASS = '.popup__feature';
 
 const ADVERT_FEATURES_CLASS = {
   wifi: `${POPUP_FEATURE_CLASS}--wifi`,
@@ -47,7 +46,7 @@ const getPhotosList = (photos, element) => {
   }
 };
 
-adverts.forEach((adv) => {
+const createAdvert = (adv) => {
   const advertElement = popup.cloneNode(true);
   advertElement.querySelector('.popup__title').textContent = adv.offer.title;
   advertElement.querySelector('.popup__text--address').textContent = adv.offer.address;
@@ -59,7 +58,7 @@ adverts.forEach((adv) => {
   advertElement.querySelector('.popup__description').textContent = adv.offer.description;
   advertElement.querySelector('.popup__avatar').src = adv.author.avatar;
   getPhotosList(adv.offer.photos, advertElement);
-  advertList.appendChild(advertElement);
-});
+  return advertElement;
+};
 
-advertPlace.appendChild(advertList);
+export {createAdvert};
