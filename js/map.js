@@ -1,10 +1,8 @@
 import {activatePage} from './page-condition.js';
-import {adverts} from './get-adverts-data.js';
 import {createAdvert} from './create-adverts.js';
-import {COORDINATE_ROUND, CENTER_TOKYO} from './const/common.js';
+import {CENTER_TOKYO, MAP_ZOOM} from './const/common.js';
 import {getMainPinAddress} from './form.js';
-
-const MAP_ZOOM = 12;
+import {ADVERT_QUANTITY} from './const/common.js';
 
 const LAYER_PARAMETERS = {
   TILE_LAYER: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -50,12 +48,16 @@ const addPin = (adv) => {
   .addTo(map);
 };
 
-for (let adv of adverts) {
-  addPin(adv);
-}
+const initPins = (adverts) => {
+  for (let adv of adverts.slice(0, ADVERT_QUANTITY)) {
+    addPin(adv);
+  }
+};
 
 // Получение координат при перемещении главного пина
 
 mainPin.on('moveend', (evt) => {
   getMainPinAddress(evt.target.getLatLng());
 });
+
+export {initPins, mainPin, map};

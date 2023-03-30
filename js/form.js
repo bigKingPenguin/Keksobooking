@@ -1,4 +1,8 @@
-import {COORDINATE_ROUND} from './const/common.js';
+import {CENTER_TOKYO, MAP_ZOOM, COORDINATE_ROUND} from './const/common.js';
+import {SERVER} from './const/urls.js';
+import {api} from './server.js';
+import {showSubmitSuccess, showSubmitError} from './messages.js';
+import {mainPin, map} from './map.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -20,14 +24,8 @@ const GUEST_QUANTITY = {
 };
 
 const form = document.querySelector('.ad-form');
-
-const title = form.title;
-const price = form.price;
-const type = form.type;
-const checkin = form.timein;
-const checkout = form.timeout;
-const roomNumber = form['room_number'];
 const guestsNumber = Array.from(form.capacity.querySelectorAll('option'));
+const formResetButton = form.querySelector('.ad-form__reset');
 
 // Получение координат главной метки
 
@@ -39,55 +37,57 @@ const getMainPinAddress = (coordinates) => {
 
 // Валидация поля "ЗАГОЛОВОК"
 
-title.addEventListener('input', () => {
-  if (title.value.length < MIN_TITLE_LENGTH) {
-    title.setCustomValidity('Минимальная длина заголовка 30 символов');
-  } else if (title.value.length > MAX_TITLE_LENGTH) {
-    title.setCustomValidity('Максимальная длина заголовка 100 символов');
+form.title.addEventListener('input', () => {
+  if (form.title.value.length < MIN_TITLE_LENGTH) {
+    form.title.setCustomValidity('Минимальная длина заголовка 30 символов');
+  } else if (form.title.value.length > MAX_TITLE_LENGTH) {
+    form.title.setCustomValidity('Максимальная длина заголовка 100 символов');
   } else {
-    title.setCustomValidity('');
+    form.title.setCustomValidity('');
   }
-  title.reportValidity();
+  form.title.reportValidity();
 });
 
 // Изменение поля "ТИП ЖИЛЬЯ"
 
-price.min = MIN_APARTMENT_PRICE[type.value];
-price.placeholder = MIN_APARTMENT_PRICE[type.value];
+form.price.min = MIN_APARTMENT_PRICE[form.type.value];
+form.price.placeholder = MIN_APARTMENT_PRICE[form.type.value];
 
-type.addEventListener('change', () => {
-  price.placeholder = MIN_APARTMENT_PRICE[type.value];
-  price.min = MIN_APARTMENT_PRICE[type.value];
+form.type.addEventListener('change', () => {
+  form.price.placeholder = MIN_APARTMENT_PRICE[form.type.value];
+  form.price.min = MIN_APARTMENT_PRICE[form.type.value];
 });
 
 // Валидация поля "ЦЕНА ЗА НОЧЬ"
 
-price.addEventListener('input', () => {
-  if (price.value < price.min) {
-    price.setCustomValidity(`Минимальная цена для данного типа жилья ${MIN_APARTMENT_PRICE[type.value]} руб.`);
-  } else if (price.value > MAX_PRICE_VALUE) {
-    price.setCustomValidity('Цена не может быть выше 1 000 000 руб.');
+form.price.addEventListener('input', () => {
+  if (form.price.value < form.price.min) {
+    form.price.setCustomValidity(`Минимальная цена для данного типа жилья ${MIN_APARTMENT_PRICE[form.type.value]} руб.`);
+  } else if (form.price.value > MAX_PRICE_VALUE) {
+    form.price.setCustomValidity('Цена не может быть выше 1 000 000 руб.');
   } else {
-    price.setCustomValidity('');
+    form.price.setCustomValidity('');
   }
-  price.reportValidity();
+  form.price.reportValidity();
 });
+
+// price.addEventListener('invalid', (evt) => price.classList.add('ad-form__input--error'))
 
 // Изменение поля "ВРЕМЯ ЗАЕЗДА" и "ВРЕМЯ ВЫЕЗДА"
 
-checkin.addEventListener('change', () => {
-  checkout.value = checkin.value;
+form.timein.addEventListener('change', () => {
+  form.timeout.value = form.timein.value;
 });
 
-checkout.addEventListener('change', () => {
-  checkin.value = checkout.value;
+form.timeout.addEventListener('change', () => {
+  form.timein.value = form.timeout.value;
 });
 
 // Изменение поля "КОЛИЧЕСТВО КОМНАТ"
 
-roomNumber.addEventListener('change', () => {
+form.room_number.addEventListener('change', () => {
   for (let guests of guestsNumber) {
-    if (!GUEST_QUANTITY[roomNumber.value].includes(guests.value)) {
+    if (!GUEST_QUANTITY[form.room_number.value].includes(guests.value)) {
       guests.disabled = true;
       guests.selected = false;
 
@@ -96,6 +96,48 @@ roomNumber.addEventListener('change', () => {
       guests.selected = true;
     }
   }
+});
+
+// Очистка формы
+// — все заполненные поля возвращаются в изначальное состояние;
+// — фильтрация (состояние фильтров и отфильтрованные метки) сбрасывается;
+// — метка адреса возвращается в исходное положение;
+// — значение поля адреса корректируется соответственно исходному положению метки.
+
+const resetForm = () => {
+  form.reset();
+  mainPin.setLatLng(CENTER_TOKYO);
+  map.setView(CENTER_TOKYO, MAP_ZOOM);
+  setTimeout(() => getMainPinAddress(CENTER_TOKYO)); // TODO: иначе координаты не выставляются
+};
+
+formResetButton.addEventListener('click', resetForm);
+
+// Отправка данных
+
+form.querySelector('.ad-form__submit').addEventListener('click', () => {
+  for (let input of form) {
+    if (!input.validity.valid) {
+      input.classList.add('ad-form__input--error');
+    }
+  }
+});
+
+form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  for (let input of form) {
+    input.classList.remove('ad-form__input--error');
+  }
+  api({
+    url: SERVER,
+    method: 'POST',
+    body: evt.target,
+    onSuccess: (data) => {
+      showSubmitSuccess(data);
+      resetForm();
+    },
+    onError: (error) => showSubmitError(error),
+  });
 });
 
 export {getMainPinAddress};
