@@ -5,7 +5,7 @@ const formInteractiveElements = formSection.querySelectorAll('fieldset');
 
 // Inactive
 document.addEventListener('DOMContentLoaded', () => {
-  formSection.classList.add('ad-form--disabled');
+  formSection.classList.add('ad-formActions--disabled');
   formInteractiveElements.forEach(i => i.setAttribute('disabled', 'disabled'));
   mapFilter.classList.add('map__filters--disabled');
   mapFilterElements.forEach(i => i.setAttribute('disabled', 'disabled'));
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Active
 const activatePage = () => {
-  formSection.classList.remove('ad-form--disabled');
+  formSection.classList.remove('ad-formActions--disabled');
   formInteractiveElements.forEach(i => i.removeAttribute('disabled'));
   mapFilter.classList.remove('map__filters--disabled');
   mapFilterElements.forEach(i => i.removeAttribute('disabled'));

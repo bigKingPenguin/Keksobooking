@@ -1,8 +1,7 @@
 import {activatePage} from './page-condition.js';
 import {createAdvert} from './create-adverts.js';
-import {CENTER_TOKYO, MAP_ZOOM} from './const/common.js';
-import {getMainPinAddress} from './form.js';
-import {ADVERT_QUANTITY} from './const/common.js';
+import {CENTER_TOKYO, MAP_ZOOM, ADVERT_QUANTITY} from './const/common.js';
+import {getMainPinAddress} from './form/form.js';
 
 const LAYER_PARAMETERS = {
   TILE_LAYER: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
