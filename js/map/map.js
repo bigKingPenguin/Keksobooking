@@ -1,7 +1,7 @@
-import {activatePage} from './page-condition.js';
-import {createAdvert} from './create-adverts.js';
-import {CENTER_TOKYO, MAP_ZOOM, ADVERT_QUANTITY} from './const/common.js';
-import {getMainPinAddress} from './form/form.js';
+import {activatePage} from '../page-condition.js';
+import {createAdvert} from '../create-adverts.js';
+import {CENTER_TOKYO, MAP_ZOOM, ADVERT_QUANTITY} from '../const/common.js';
+import {getMainPinAddress} from '../form/form.js';
 
 const LAYER_PARAMETERS = {
   TILE_LAYER: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -36,6 +36,8 @@ tileLayer
 
 // Создание и инициализация пинов
 
+const pinLayer = L.layerGroup().addTo(map);
+
 const mainPin = L.marker(CENTER_TOKYO, {draggable: true, icon: PIN_MAIN})
 .addTo(map);
 
@@ -44,7 +46,7 @@ getMainPinAddress(CENTER_TOKYO);
 const addPin = (adv) => {
   L.marker(adv.location, {icon: PIN})
   .bindPopup(createAdvert(adv))
-  .addTo(map);
+  .addTo(pinLayer);
 };
 
 const initPins = (adverts) => {
@@ -53,10 +55,12 @@ const initPins = (adverts) => {
   }
 };
 
+const removePins = () => pinLayer.clearLayers();
+
 // Получение координат при перемещении главного пина
 
 mainPin.on('moveend', (evt) => {
   getMainPinAddress(evt.target.getLatLng());
 });
 
-export {initPins, mainPin, map};
+export {initPins, mainPin, map, removePins};

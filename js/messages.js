@@ -1,4 +1,4 @@
-import {ESC_KEYCODE} from './const/common.js';
+import {ESC_KEYCODE, TIMEOUT_POPUP_CLOSE} from './const/common.js';
 
 const map = document.querySelector('.map');
 const main = document.querySelector('main');
@@ -7,8 +7,6 @@ const buttonCloseLoadDataError = loadDataErrorPopup.querySelector('.data-error__
 const submitErrorPopup = document.querySelector('#error').content.querySelector('.error');
 const buttonCloseSubmitErrorPopup = submitErrorPopup.querySelector('.error__button');
 const submitSuccessPopup = document.querySelector('#success').content.querySelector('.success');
-
-const TIMEOUT = 5000;
 
 let activeTimeout;
 let activePopup;
@@ -25,7 +23,7 @@ const removePopupOnEsc = (evt) => {
 };
 
 const addPopupCloseListeners = (popup, button) => {
-  activeTimeout = setTimeout(() => activePopup.remove(), TIMEOUT);
+  activeTimeout = setTimeout(() => activePopup.remove(), TIMEOUT_POPUP_CLOSE);
   if (button) {
     button.addEventListener('click', removePopup);
   }

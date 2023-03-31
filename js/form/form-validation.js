@@ -9,7 +9,7 @@ const MAX_PRICE_VALUE = 1000000;
 
 // Валидация поля "ЗАГОЛОВОК"
 
-form.title.addEventListener('input', () => {
+const validateTitle = () => {
   if (form.title.value.length < MIN_TITLE_LENGTH) {
     form.title.setCustomValidity('Минимальная длина заголовка 30 символов');
   } else if (form.title.value.length > MAX_TITLE_LENGTH) {
@@ -18,11 +18,13 @@ form.title.addEventListener('input', () => {
     form.title.setCustomValidity('');
   }
   form.title.reportValidity();
-});
+};
+
+form.title.addEventListener('input', validateTitle);
 
 // Валидация поля "ЦЕНА ЗА НОЧЬ"
 
-form.price.addEventListener('input', () => {
+const validatePrice = () => {
   if (form.price.value < form.price.min) {
     form.price.setCustomValidity(`Минимальная цена для данного типа жилья ${MIN_APARTMENT_PRICE[form.type.value]} руб.`);
   } else if (form.price.value > MAX_PRICE_VALUE) {
@@ -31,7 +33,9 @@ form.price.addEventListener('input', () => {
     form.price.setCustomValidity('');
   }
   form.price.reportValidity();
-});
+};
+
+form.price.addEventListener('input', validatePrice);
 
 // Подсветка невалидных инпутов
 
