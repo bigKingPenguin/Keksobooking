@@ -12,6 +12,7 @@ import './form/form.js';
 import './form/form-actions.js';
 import './form/form-data.js';
 import './form/form-validation.js';
+import './form/form-preview.js';
 import {initPins} from './map/map.js';
 import {showLoadDataError} from './messages.js';
 import {api} from './server.js';
