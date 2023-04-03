@@ -4,6 +4,7 @@ import {api} from '../server.js';
 import {showSubmitSuccess, showSubmitError} from '../messages.js';
 import {mainPin, map} from '../map/map.js';
 import {getMainPinAddress, removeInvalidInputBorder} from './form.js';
+import {removeAvatarPreview, removePhotoPreview} from './form-preview.js';
 import {resetFilters} from '../map/map-filter.js';
 
 const form = document.querySelector('.ad-form');
@@ -28,13 +29,16 @@ form.addEventListener('submit', (evt) => {
 
 // Очистка формы
 
-const resetForm = () => {
+const resetForm = (evt) => {
+  evt.preventDefault();
   form.reset();
   mainPin.setLatLng(CENTER_TOKYO);
   map.setView(CENTER_TOKYO, MAP_ZOOM);
   resetFilters();
   removeInvalidInputBorder();
-  setTimeout(() => getMainPinAddress(CENTER_TOKYO)); // иначе координаты не выставляются
+  removeAvatarPreview();
+  removePhotoPreview();
+  getMainPinAddress(CENTER_TOKYO);
 };
 
 formResetButton.addEventListener('click', resetForm);
