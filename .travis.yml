@@ -1,7 +1,0 @@
-anguage: node_js
-
-node_js:
-  - "14"
-
-notifications:
-  email: false

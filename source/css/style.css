@@ -160,7 +160,7 @@ fieldset {
   cursor: pointer;
 
   background-color: #f8f8f8;
-  background-image: url("../img/sprite-feature.svg");
+  background-image: url("../../build/img/sprite-feature.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 25px 345px;
@@ -426,7 +426,7 @@ fieldset {
   border-radius: 3px;
 
   background-color: #fafafa;
-  background-image: url("../img/sprite-feature.svg");
+  background-image: url("../../build/img/sprite-feature.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 35px 600px;
@@ -710,7 +710,7 @@ input.ad-form__input--error {
 
   font-size: 0;
 
-  background-image: url("../img/sprite-social.svg");
+  background-image: url("../../build/img/sprite-social.svg");
   background-repeat: no-repeat;
   background-size: 29px 274px;
 
@@ -872,7 +872,7 @@ input.ad-form__input--error {
 
   font-size: 0;
 
-  background-image: url("../img/sprite-feature.svg");
+  background-image: url("../../build/img/sprite-feature.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 25px 345px;
@@ -1001,7 +1001,7 @@ input.ad-form__input--error {
   width: 109px;
   height: 122px;
 
-  background-image: url("../img/muffin-white.svg");
+  background-image: url("../../build/img/muffin-white.svg");
   background-position: center;
   background-repeat: no-repeat;
 
@@ -1011,7 +1011,7 @@ input.ad-form__input--error {
 }
 
 .error__message::before {
-  background-image: url("../img/muffin-red.svg");
+  background-image: url("../../build/img/muffin-red.svg");
 }
 
 .error__button {

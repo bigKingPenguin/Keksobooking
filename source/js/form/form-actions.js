@@ -1,7 +1,7 @@
 import {CENTER_TOKYO, MAP_ZOOM} from '../const/common.js';
 import {SERVER} from '../const/urls.js';
 import {api} from '../server.js';
-import {showSubmitSuccess, showSubmitError} from '../messages.js';
+import {showPopupSubmitSuccess, showPopupSubmitError} from '../popups.js';
 import {mainPin, map} from '../map/map.js';
 import {getMainPinAddress, removeInvalidInputBorder} from './form.js';
 import {removeAvatarPreview, removePhotoPreview} from './form-preview.js';
@@ -20,10 +20,10 @@ form.addEventListener('submit', (evt) => {
     method: 'POST',
     body: evt.target,
     onSuccess: (data) => {
-      showSubmitSuccess(data);
-      resetForm();
+      showPopupSubmitSuccess(data);
+      resetForm(evt);
     },
-    onError: (error) => showSubmitError(error),
+    onError: (error) => showPopupSubmitError(error),
   });
 });
 
