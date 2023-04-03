@@ -36,19 +36,19 @@ const appearPopup = (popup, place) => {
   place.appendChild(activePopup);
 };
 
-const showLoadDataError = () => {
+const showPopupLoadDataError = () => {
   appearPopup(loadDataErrorPopup, map);
   addPopupCloseListeners(loadDataErrorPopup, buttonCloseLoadDataError);
 };
 
-const showSubmitSuccess = () => {
+const showPopupSubmitSuccess = () => {
   appearPopup(submitSuccessPopup, main);
   addPopupCloseListeners(submitSuccessPopup);
 };
 
-const showSubmitError = () => {
+const showPopupSubmitError = () => {
   appearPopup(submitErrorPopup, main);
   addPopupCloseListeners(submitSuccessPopup, buttonCloseSubmitErrorPopup);
 };
 
-export {showLoadDataError, showSubmitSuccess, showSubmitError};
+export {showPopupLoadDataError, showPopupSubmitSuccess, showPopupSubmitError};

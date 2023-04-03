@@ -17,7 +17,7 @@ const api = (params) => {
     if (response.ok) {
       return response.json();
     } else {
-      throw new Error(response);
+      throw new Error();
     }
   })
   .then((response) => {
